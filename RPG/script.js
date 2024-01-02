@@ -18,6 +18,25 @@ const monsterStats = document.querySelector("#monsterStats");
 const monsterName = document.querySelector("#monsterName");
 const monsterHealthText = document.querySelector("#monsterHealth");
 
+const weapons = [
+  {
+    name: "stick",
+    power: 5,
+  },
+  {
+    name: "dagger",
+    power: 30,
+  },
+  {
+    name: "claw hammer",
+    power: 50,
+  },
+  {
+    name: "sword",
+    power: 100,
+  },
+];
+
 const locations = [
   {
     name: "town square",
@@ -36,6 +55,13 @@ const locations = [
     "button functions": [buyHealth, buyWeapon, goTown],
     text: (text.innerText = "You enter the store."),
   },
+
+  {
+    name: "cave",
+    "button text": ["Fight slime", "Fight fanged beast", "Go to town square"],
+    "button functions": [fightSlime, fightBeast, goTown],
+    text: (text.innerText = "You enter the cave.You see some monsters."),
+  },
 ];
 // initialize buttons
 
@@ -43,46 +69,55 @@ button1.onclick = goStore;
 button2.onclick = goCave;
 button3.onclick = fightDragon;
 
-// function goTown() {
-//   button1.innerText = "Go to store";
-//   button2.innerText = "Go to cave";
-//   button3.innerText = "Fight dragon";
+function goTown() {
+  update(locations[0]);
+}
 
-//   button1.onclick = goStore;
-//   button2.onclick = goCave;
-//   button3.onclick = fightDragon;
+function goStore() {
+  update(locations[1]);
+}
 
-//   text.innerText =
-//     'You are in the town square. You see a sign that says "Store".';
-// }
+function goCave() {
+  update(locations[2]);
+}
 
-// function goStore() {
-//   button1.innerText = "Buy 10 health (10 gold)";
-//   button2.innerText = "Buy weapon (30 gold)";
-//   button3.innerText = "Go to town square";
+function fightDragon() {
+  console.log("Fighting dragon.");
+}
 
-//   button1.onclick = buyHealth;
-//   button2.onclick = buyWeapon;
-//   button3.onclick = goTown;
+function buyHealth() {
+  if (gold >= 10) {
+    gold -= 10;
+    health += 10;
+    goldText.innerText = gold;
+    healthText.innerText = health;
+  } else {
+    text.innerText = "You do not have enough gold to buy health.";
+  }
+}
+function buyWeapon() {
+  if (gold >= 30) {
+    gold -= 30;
+    currentWeapon++;
+    goldText.innerText = gold;
+    let newWeapon = weapons[currentWeapon].name;
 
-//   text.innerText = "You enter the store.";
-// }
+    // When you use a variable in bracket notation, you are accessing the property or index by the value of that variable.
 
-function goCave() {}
-
-function fightDragon() {}
-function buyHealth() {}
-function buyWeapon() {}
+    text.innerText = "You now have a " + newWeapon + ".";
+  }
+}
+function fightSlime() {}
+function fightBeast() {}
 
 function update(location) {
-  button1.innerText = "Go to store";
-  button2.innerText = "Go to cave";
-  button3.innerText = "Fight dragon";
+  button1.innerText = location["button text"][0];
+  button2.innerText = location["button text"][1];
+  button3.innerText = location["button text"][2];
 
-  button1.onclick = goStore;
-  button2.onclick = goCave;
-  button3.onclick = fightDragon;
+  button1.onclick = location["button functions"][0];
+  button2.onclick = location["button functions"][1];
+  button3.onclick = location["button functions"][2];
 
-  text.innerText =
-    'You are in the town square. You see a sign that says \"Store\".';
+  text.innerText = location.text;
 }
