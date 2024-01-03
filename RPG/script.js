@@ -37,6 +37,24 @@ const weapons = [
   },
 ];
 
+const monsters = [
+  {
+    name:"slime",
+    level:2,
+    health:15
+  },
+  {
+    name:"fanged beast",
+    level:8,
+    health:60
+  },
+  {
+    name:"dragon",
+    level:20,
+    health:300
+  }
+];
+
 const locations = [
   {
     name: "town square",
@@ -62,6 +80,13 @@ const locations = [
     "button functions": [fightSlime, fightBeast, goTown],
     text: (text.innerText = "You enter the cave.You see some monsters."),
   },
+
+  {
+    name: "fight",
+    "button text": ["Attack", "Dodge", "Run"],
+    "button functions": [attack, dodge, goTown],
+    text: (text.innerText = "You are fighting a monster."),
+  }
 ];
 // initialize buttons
 
@@ -96,19 +121,57 @@ function buyHealth() {
   }
 }
 function buyWeapon() {
-  if (gold >= 30) {
-    gold -= 30;
-    currentWeapon++;
-    goldText.innerText = gold;
-    let newWeapon = weapons[currentWeapon].name;
+  if (currentWeapon < weapons.length - 1) {
+    if (gold >= 30) {
+      gold -= 30;
+      currentWeapon++;
+      goldText.innerText = gold;
+      let newWeapon = weapons[currentWeapon].name;
 
-    // When you use a variable in bracket notation, you are accessing the property or index by the value of that variable.
+      // When you use a variable in bracket notation, you are accessing the property or index by the value of that variable.
 
-    text.innerText = "You now have a " + newWeapon + ".";
+      text.innerText = "You now have a " + newWeapon + ".";
+      inventory.push(newWeapon);
+      text.innerText += " In your inventory you have: " + inventory;
+    } else {
+      text.innerText = "You do not have enough gold to buy a weapon.";
+    }
+  }
+  else{
+    text.innerText = "You already have the most powerful weapon!"
+    button2.innerText = "Sell weapon for 15 gold";
+    button2.onclick= sellWeapon;
   }
 }
-function fightSlime() {}
-function fightBeast() {}
+
+function sellWeapon(){
+  if(inventory.length > 1){
+    gold += 15;
+    goldText.innerText=gold;
+    let currentWeapon;
+    currentWeapon=inventory.shift();
+    text.innerText = "You sold a " + currentWeapon + ".";
+    text.innerText += " In your inventory you have: " + inventory;
+  }
+  else{
+    text.innerText = "Don't sell your only weapon!"
+  }
+}
+function fightSlime() {
+  fighting= 0;
+  goFight();
+}
+function fightBeast() {
+  fighting= 1;
+  goFight();
+}
+function fightDragon() {
+  fighting= 2;
+  goFight();
+}
+function goFight(){
+  update(locations[3]);
+}
 
 function update(location) {
   button1.innerText = location["button text"][0];
@@ -121,3 +184,6 @@ function update(location) {
 
   text.innerText = location.text;
 }
+
+function attack(){};
+function dodge(){};
