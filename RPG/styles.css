@@ -1,5 +1,7 @@
 body {
-  background-color: #0a0a23;
+  background-color: black;
+  font-family:"Ubuntu" ;
+  word-spacing: 1px;
 }
 
 #text {
@@ -38,8 +40,11 @@ body {
 
 button {
   cursor: pointer;
-  color: #0a0a23;
-  background-color: #feac32;
-  background-image: linear-gradient(#fecc4c, #ffac33);
-  border: 3px solid #feac32;
+  color: black;
+  background-color: #0e7c48;
+  background-image: linear-gradient(#0cfab3, #5abd30);
+  border: 3px solid #6cdbae;
+  font-family: "Ubuntu";
+  font-weight: 800;
+
 }
