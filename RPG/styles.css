@@ -1,7 +1,16 @@
+html,
+body {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+}
+
 body {
   background-color: black;
-  font-family:"Ubuntu" ;
+  font-family: "Ubuntu";
   word-spacing: 1px;
+  display: flex;
+  flex-direction: row;
 }
 
 #text {
@@ -10,19 +19,10 @@ body {
   padding: 10px;
 }
 
-#game {
-  margin: 30px auto 0px auto;
-  max-width: 500px;
-  max-height: 400px;
-  background-color: #ffffff;
-  color: #ffffff;
-  padding: 10px;
-}
-
 #controls,
 #stats {
   border: 1px solid #0a0a23;
-  color: #0a0a23;
+  color: white;
   padding: 5px;
 }
 
@@ -46,5 +46,37 @@ button {
   border: 3px solid #6cdbae;
   font-family: "Ubuntu";
   font-weight: 800;
+  margin-top: 10px;
+  letter-spacing: 1px;
+}
 
+.game-img {
+  flex: 1;
+  max-height: 100vh;
+  overflow: hidden;
+  margin: 5px;
+}
+
+.game-img img {
+  width: 100%;
+  height: 100vh;
+  width: 50vw;
+  display: block;
+}
+
+#game {
+  flex: 1;
+  max-height: 50vh;
+  padding: 10px;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+#gold {
+  color: gold;
+}
+
+#health {
+  color: greenyellow;
 }
